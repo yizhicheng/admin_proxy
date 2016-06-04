@@ -1,4 +1,6 @@
 var pool = require('../db/config');
+var exec = require('child_process').exec;
+
 module.exports = {
   /** 获得反向代理列表控制器 */
   GetProxyCtrl : function( req, res, next ) {
@@ -38,19 +40,24 @@ module.exports = {
     if( id ) {
       sql += ' where id=' + id;
     }
+    console.log( req.body.domain,'11' );
     pool.getConnection(function (err, conn) {
       conn.query(sql, function(err, results) {
         var json = {};
-        if( results.affectedRows >= 1 ){
-          var command = require('../command');
-          command.exec('ls -l', function ( resp ) {
-            console.log( resp );
-          })
-          json = {message: '操作成功!', error: 0, code: 200};
+        if( results && results.affectedRows >= 1 ){
+          exec("sudo pm2 restart all", function (error, stdout, stderr,resp) {
+              if ( error !== null ) {
+                json = {message: '重启服务失败，请手动重启服务!', error: 1, code: 200};
+                res.jsonp(json);
+              } else {
+                json = {message: '操作成功!', error: 0, code: 200};
+                res.jsonp(json);
+              }
+          });
         } else {
-          json = {message: '失败', error: 1, code: 400};
+          json = {message: '操作数据库失败!', error: 1, code: 400};
+          res.jsonp(json);
         }
-        res.jsonp(json);
       });
     });
   }
