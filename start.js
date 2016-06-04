@@ -17,7 +17,7 @@ app.use('/', express.static(path.join(__dirname,'fed')));
 routes(app);
 
 // 启动服务
-http.createServer(app).listen('3001',function(){
+http.createServer(app).listen('3213',function(){
   console.log('start port 3001');
 });
 
