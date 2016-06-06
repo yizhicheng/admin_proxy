@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "123" | sudo -S pm2 restart all
+sudo -S pm2 restart all
