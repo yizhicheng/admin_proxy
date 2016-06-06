@@ -24,6 +24,7 @@
     <div class="container" style="margin-top: 80px;">
       <div data-example-id="striped-table">
         <button class="btn btn-primary" style="margin-bottom: 15px;" onclick="proxy.add()">添加配置</button>
+        <button class="btn btn-success" style="margin-left: 15px;margin-bottom: 15px;" onclick="proxy.restart()">重启服务器</button>
         <table class="table table-striped proxy-list-wrap">
           <tr>
             <th>#</th>
@@ -157,6 +158,17 @@
           success: function( data ) {
             proxy.list = data;
             $("#proxy_list").tmpl(data).appendTo('.proxy-list-wrap');
+          }
+        });
+      },
+      // 重启服务器
+      restart : function () {
+        $.ajax({
+          url: '/api/restartserver',
+          dataType: 'json',
+          type: 'GET',
+          success: function( data ) {
+            alert(data.message);
           }
         });
       }

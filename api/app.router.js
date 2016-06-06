@@ -11,5 +11,9 @@ module.exports = {
   'postproxy' : {
     url: '/postproxy',
     controller: 'ProxyConfigCtrl'
+  },
+  'restartserver' : {
+    url: '/restartserver',
+    controller: 'RestartServerCtrl'
   }
 };
