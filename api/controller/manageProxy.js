@@ -29,7 +29,7 @@ module.exports = {
     proxyServ.proxyConfig( id, domain, target_domain ).then(function( resp ){
       var json = {};
       if( results && results.affectedRows >= 1 ){
-        exec("sudo pm2 restart all", function (error, stdout, stderr,resp) {
+        exec("sudo pm2 restart all", function (error, stdout, stderr) {
             if ( error !== null ) {
               json = {message: '重启服务失败，请手动重启服务!', error: 1, code: 200};
               res.jsonp(json);
