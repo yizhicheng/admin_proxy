@@ -15,11 +15,11 @@ var ApiServer = function(){
   //遍历配置的路由
   this.tranRouterConfig = function( router ) {
     var routerConfig = require('./app.router.js');
-    var ctrls = require('./controller/manageProxy');
     // 遍历所有配置的路由
     for (var k in routerConfig) {
       if ( routerConfig.hasOwnProperty(k) ) {
         var ctrl = routerConfig[k].controller;
+        var ctrls = require('.' + routerConfig[k].controllerUrl);
         ctrls.hasOwnProperty( ctrl ) && router.all(routerConfig[k].url, ctrls[ctrl]);
       }
     }
