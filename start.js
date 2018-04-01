@@ -1,3 +1,4 @@
+/** 项目启动文件*/
 /** 项目启动文件 */
 var express = require('express');
 var path = require('path');
